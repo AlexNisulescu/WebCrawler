@@ -1,2 +1,8 @@
-package PACKAGE_NAME;public class FileNotFoundException {
+public class FileNotFoundException extends Exceptions{
+
+    public FileNotFoundException(String errorMessage, Throwable cause) {
+
+        super(errorMessage, cause);
+
+    }
 }
