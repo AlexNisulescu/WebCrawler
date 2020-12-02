@@ -1,13 +1,7 @@
-public class Exceptions {
-    private String errorMessage;
+import java.io.IOException;
+public class Exceptions extends IOException {
 
-    public Exceptions(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-    public void fileNotFound() {
-
-    }
-    public void connectionFailed(){
+    public Exceptions(String errorMessage, Throwable cause) {
 
     }
 }
