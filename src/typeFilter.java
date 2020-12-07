@@ -1,4 +1,6 @@
+
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FilenameFilter;
 
 public class typeFilter implements Search{
@@ -11,6 +13,33 @@ public class typeFilter implements Search{
     }
     @Override
     public void search_method() {
-        System.out.println("Aici voi realiza cautarea dupa tip");
+    File directory = new File(this.path);
+    if(!directory.exists())
+    {
+        System.out.println(String.format("Directory %s does not exist", this.path));
+        return;
+    }
+        if (!directory.isDirectory())
+        {
+            System.out.println(String.format("Provided value %s is not a directory", this.path));
+            return;
+        }
+        //Show all files
+
+      FileFilter allfiles = new FileFilter() {
+          @Override
+          public boolean accept(File pathname) {
+              if(pathname.getName().endsWith(type))
+              {
+                  return true;
+              }
+              return false;
+          }
+      };
+        File[] files = directory.listFiles(allfiles);
+        for (File f: files)
+        {
+            System.out.println(f.getName());
+        }
     }
 }
