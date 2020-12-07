@@ -1,4 +1,4 @@
-
+package com.company;
 import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,10 +10,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class wordFilter implements Search {
+public class WordFilter implements Search {
+
     private String path;
     private String keyWord;
-     public wordFilter(String keyWord, String path )
+     public WordFilter(String keyWord, String path )
      {
          this.keyWord=keyWord;
          this.path=path;
