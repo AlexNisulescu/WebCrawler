@@ -1,12 +1,12 @@
-
+package com.company;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 
-public class typeFilter implements Search{
+public class TypeFilter implements Search{
     private String type;
     private String path = null;
-    public typeFilter(String type, String path)
+    public TypeFilter(String type, String path)
     {
         this.type=type;
         this.path=path;
