@@ -1,4 +1,3 @@
-package com.company;
 import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
