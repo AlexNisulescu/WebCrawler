@@ -4,16 +4,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Crawler {
-    private String content;
     URL myUrl;
-    BufferedReader br;
+    InputStream in;
+    ByteArrayOutputStream out;
+    byte[] response;
 
     public Crawler(String url) {
-        content=new String();
         try {
             myUrl = new URL(url);
             URLConnection connection = myUrl.openConnection();
-            br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            in = new BufferedInputStream(myUrl.openStream());
+            out = new ByteArrayOutputStream();
         }
         catch (IOException e)
         {
@@ -23,17 +24,11 @@ public class Crawler {
     }
 
     public void setMyUrl(URL Url) {
-        this.myUrl = Url;
-    }
-
-    public void downloader(){
-        String buffer;
         try {
-            while ((buffer = br.readLine()) != null) {
-                System.out.println(buffer);
-                content += buffer;
-                content += "\n";
-            }
+            this.myUrl = Url;
+            URLConnection connection = myUrl.openConnection();
+            in = new BufferedInputStream(myUrl.openStream());
+            out = new ByteArrayOutputStream();
         }
         catch (IOException e)
         {
@@ -42,19 +37,36 @@ public class Crawler {
         }
     }
 
-    public void writeToFile(String Filename)
-    {
+    public void downloader(String Filename){
         try {
-            FileWriter myObj = new FileWriter(Filename);
-            myObj.write(content);
-            myObj.close();
+            byte[] buffer = new byte[2048];
+            int n = 0;
+            while (-1 != (n = in.read(buffer))) {
+                out.write(buffer, 0, n);
+            }
+            out.close();
+            in.close();
+            response = out.toByteArray();
+            writeToFile(Filename);
+        }
+        catch (IOException e)
+        {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    public void writeToFile(String Filename) {
+        try {
+            FileOutputStream fos = new FileOutputStream(Filename);
+            fos.write(response);
+            fos.close();
         }
         catch(IOException e){
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
     }
-
     public void checkContents(){
 
     }
