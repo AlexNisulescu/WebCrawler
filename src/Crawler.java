@@ -51,8 +51,8 @@ public class Crawler {
                     out.write(buffer, 0, n);
                     currentTime=System.currentTimeMillis();
                     if (currentTime-startTime>=downloadDelay){
-                        //TimeExceededException t=new TimeExceededException("Downloading time exceeded...");
-                        //t.throwExc();
+                        TimeExceededException t=new TimeExceededException("Downloading time exceeded...");
+                        t.throwExc();
                         break;
                     }
                 }
