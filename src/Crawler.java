@@ -9,18 +9,8 @@ public class Crawler {
     ByteArrayOutputStream out;
     byte[] response;
 
-    public Crawler(String url) {
-        try {
-            myUrl = new URL(url);
-            URLConnection connection = myUrl.openConnection();
-            in = new BufferedInputStream(myUrl.openStream());
-            out = new ByteArrayOutputStream();
-        }
-        catch (IOException e)
-        {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+    public Crawler() {
+
     }
 
     public void setMyUrl(URL Url) {
@@ -67,6 +57,7 @@ public class Crawler {
             e.printStackTrace();
         }
     }
+
     public void checkContents(){
 
     }
