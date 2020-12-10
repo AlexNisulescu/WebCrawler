@@ -1,7 +1,7 @@
-public class CrawlForbidden extends Exception{
+public class CrawlForbiddenException extends Exception{
     private String argsError;
 
-    public CrawlForbidden(String errorMessage) {
+    public CrawlForbiddenException(String errorMessage) {
         super(errorMessage);
         this.argsError = errorMessage;
     }
