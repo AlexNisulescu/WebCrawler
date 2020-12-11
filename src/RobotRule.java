@@ -9,10 +9,17 @@ public class RobotRule
     public String userAgent;
     public String rule;
 
+    /**
+     * Empty constructor
+     */
     RobotRule() {
 
     }
 
+    /**
+     *
+     * @return the new formatted rule
+     */
     @Override public String toString()
     {
         StringBuilder result = new StringBuilder();
