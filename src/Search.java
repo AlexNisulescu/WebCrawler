@@ -7,5 +7,5 @@
 
 public interface Search {
 
-    public void search_method()throws FileNotFoundException;
+    public void search_method(String cuv)throws FileNotFoundException;
 }
