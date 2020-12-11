@@ -17,10 +17,6 @@ public class TypeFilter implements Search{
      *
      * @param type the extension according to which 
      *             we search and display the files
-     */
-    
-    /**
-     *
      * @param path the directory path from where 
      *             we search and display the files
      */
