@@ -10,20 +10,16 @@ import java.io.FilenameFilter;
  */
 
 public class TypeFilter implements Search{
-    private String type;
     private String path = null;
     
      /**
      *
-     * @param type the extension according to which 
-     *             we search and display the files
      * @param path the directory path from where 
      *             we search and display the files
      */
     
-    public TypeFilter(String type, String path)
+    public TypeFilter(String path)
     {
-        this.type=type;
         this.path=path;
     }
     
@@ -35,7 +31,7 @@ public class TypeFilter implements Search{
      */
     
     @Override
-    public void search_method() {
+    public void search_method(String type) {
     File directory = new File(this.path);
     if(!directory.exists())
     {
