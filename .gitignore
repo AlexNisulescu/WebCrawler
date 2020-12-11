@@ -4,3 +4,5 @@ out/
 *.jpg
 *.png
 *.pdf
+*.txt
+*.cnf
