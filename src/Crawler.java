@@ -31,12 +31,19 @@ public class Crawler {
      *
      * @param Url The url that needs to be downloaded
      */
-        public void setMyUrl(String Url) {
+    public void setMyUrl(String Url) throws ConnectionFailedException{
         try {
             this.myUrl = new URL(Url);
-            //URLConnection connection = myUrl.openConnection();
-            in = new BufferedInputStream(myUrl.openStream());
-            out = new ByteArrayOutputStream();
+            HttpURLConnection con =(HttpURLConnection) myUrl.openConnection();
+            con.setRequestMethod("HEAD");
+            if (con.getResponseCode() == HttpURLConnection.HTTP_OK)
+            {
+                in = new BufferedInputStream(myUrl.openStream());
+                out = new ByteArrayOutputStream();
+            }
+            else{
+                throw new ConnectionFailedException("The website " + Url + "is not available...");
+            }
         }
         catch (IOException e)
         {
@@ -199,12 +206,13 @@ public class Crawler {
 
                 if (robotRule.rule.length() <= path.length())
                 {
-                    String pathCompare = path.substring(0, robotRule.rule.length());
+                    String pathCompare = path.substring(0,
+                            robotRule.rule.length());
                     if (pathCompare.equals(robotRule.rule)) return false;
                 }
             }
         }
-            return true;
+        return true;
     }
 
 }
