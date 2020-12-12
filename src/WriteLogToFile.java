@@ -28,6 +28,7 @@ public class WriteLogToFile
                 System.out.println("An error occurred.");
                 e.printStackTrace();
                 throw new FileNotFoundException("The file can't be found for logger");
+                logger.log(Level.ALL, "Logger file not working.", e);
             }
         }
         public void info()
