@@ -42,7 +42,8 @@ public class Crawler {
                 out = new ByteArrayOutputStream();
             }
             else{
-                throw new ConnectionFailedException("The website " + Url + "is not available...");
+                throw new ConnectionFailedException("The website " + Url +
+                        "is not available...");
             }
         }
         catch (IOException e)
@@ -62,11 +63,14 @@ public class Crawler {
      * protected and can't be downloaded
      */
     public void downloader(String Filename) throws CrawlForbiddenException{
-
+        String strURL;
         if (checkContents()) {
             try {
                 getContents();
                 try {
+                    strURL=myUrl.getPath().toString().substring(1);
+                    SiteMap x = SiteMap.getInstance();
+                    x.checkRoot(strURL);
                     writeToFile(Filename);
                 }
                 catch (FileNotFoundException e)
@@ -102,7 +106,8 @@ public class Crawler {
                 out.write(buffer, 0, n);
                 currentTime = System.currentTimeMillis();
                 if (currentTime - startTime >= downloadDelay) {
-                    throw new TimeExceededException("Downloading time exceeded...");
+                    throw new TimeExceededException("Downloading time " +
+                            "exceeded...");
                 }
             }
             out.close();
@@ -148,7 +153,8 @@ public class Crawler {
         URL urlRobot;
         try { urlRobot = new URL(robot);
         } catch (MalformedURLException e) {
-            //There might be a virus or something here so if this doesn't work don't thrust the website
+            //There might be a virus or something here so if this doesn't work
+            // don't thrust the website
             return false;
         }
         String strCommands;
