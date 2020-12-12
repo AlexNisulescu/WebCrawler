@@ -3,6 +3,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import  java.util.ArrayList;
 
+/**
+ * This class parse the HTML pages and extracts the title, the body
+ * and the URLs found in this pages.
+ */
 public class Parser
 {
     private String title;
@@ -10,10 +14,15 @@ public class Parser
     final private String htmlPage;
     private ArrayList<String> urlList;
 
-    public Parser( String htmlContent ) {
+    public Parser(String htmlContent) {
         this.htmlPage = htmlContent;
     }
 
+    /**
+     * This method helps parser object to take the source from which information is extracted.
+     * @param htmlContent HTML page content
+     * @throws BadArgumentsException
+     */
     public void parse(String htmlContent) throws BadArgumentsException {
         Parser parser = new Parser(htmlContent);
         this.urlList = getURLs(parser.htmlPage);
@@ -21,6 +30,12 @@ public class Parser
         this.body = getBody((parser.htmlPage));
     }
 
+    /**
+     * The method gets the title from HTML content. It uses regex to match the title.
+     * @param htmlContent HTML page content
+     * @return the title found
+     * @throws BadArgumentsException
+     */
     public String getTitle(String htmlContent) throws BadArgumentsException {
         String result = null;
         try
@@ -40,6 +55,12 @@ public class Parser
         }
     }
 
+    /**
+     * The method gets the body from HTML content. It uses regex to match the body.
+     * @param htmlContent HTML page content
+     * @return the body found
+     * @throws BadArgumentsException
+     */
     public String getBody( String htmlContent ) throws BadArgumentsException {
         String result = null;
         try
@@ -60,6 +81,12 @@ public class Parser
         }
     }
 
+    /**
+     * The method gets the URLs from HTML content. It uses regex to match the URLs.
+     * @param htmlContent HTML page content
+     * @return an array of URLs
+     * @throws BadArgumentsException
+     */
     public ArrayList<String> getURLs(String htmlContent) throws BadArgumentsException {
         try
         {
