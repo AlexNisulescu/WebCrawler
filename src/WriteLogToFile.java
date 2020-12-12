@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import  java.util.logging.*;
 
@@ -24,6 +25,9 @@ public class WriteLogToFile
                 fileHandler.setLevel(Level.ALL);
                 logger.addHandler(fileHandler);
             }catch (IOException e){
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+                throw new FileNotFoundException("The file can't be found for logger");
                 logger.log(Level.ALL, "Logger file not working.", e);
             }
         }
