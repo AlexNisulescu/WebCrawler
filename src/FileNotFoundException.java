@@ -1,3 +1,4 @@
+import java.io.IOException;
 
 /**
  *
@@ -22,6 +23,14 @@ public class FileNotFoundException extends Exception{
      */
     public void throwExc() {
         System.out.println(this.fileError);
-        //TO DO Implementeaza scrierea in log files cand e gata
+        WriteLogToFile logger=new WriteLogToFile(this.fileError);
+        try{
+            logger.setupLogger();
+            logger.error();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
