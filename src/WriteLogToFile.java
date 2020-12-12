@@ -1,32 +1,43 @@
+import java.io.File;
 import java.io.IOException;
-import  java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-
+import  java.util.logging.*;
 
 
 public class WriteLogToFile
 {
         final private String message;
-        public WriteLogToFile(String messageLog)
-            {
-            this.message = messageLog;
-            }
-         public void writeError(String messageLog) throws IOException
-         {
-            WriteLogToFile writeLogToFile = new WriteLogToFile(messageLog);
-            Logger logger = Logger.getLogger(writeLogToFile.message);
-            FileHandler fileHandler = new FileHandler("app.log", true);
-            logger.addHandler(fileHandler);
+        private final static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-            if (logger.isLoggable(Level.INFO))
-                {
-                    logger.info("Information message");
-                }
-            if (logger.isLoggable(Level.WARNING))
-                {
-                    logger.info("Warning message");
-                }
-    }
+        public WriteLogToFile(String messageLog)
+        {
+            this.message = messageLog;
+        }
+
+        public void setupLogger() throws IOException
+        {
+            LogManager.getLogManager().reset();
+            logger.setLevel(Level.ALL);
+
+            try {
+                FileHandler fileHandler = new FileHandler("app.log", true);
+                fileHandler.setFormatter(new SimpleFormatter());
+                fileHandler.setLevel(Level.ALL);
+                logger.addHandler(fileHandler);
+            }catch (IOException e){
+                logger.log(Level.ALL, "Logger file not working.", e);
+            }
+        }
+        public void info()
+        {
+            logger.info(this.message);
+        }
+        public void warning()
+        {
+            logger.warning(this.message);
+        }
+        public void error()
+        {
+            logger.severe(this.message);
+        }
 
 }
