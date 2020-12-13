@@ -66,7 +66,7 @@ public class Crawler {
      * @exception CrawlForbiddenException that is thrown when the web page is
      * protected and can't be downloaded
      */
-    public void downloader(String Filename) throws CrawlForbiddenException{
+    public void downloader(String Filename){
         String strURL;
         if (checkContents()) {
             try {
@@ -99,7 +99,7 @@ public class Crawler {
         }
         else{
             String url=myUrl.toString();
-            throw new CrawlForbiddenException("This website is not allowing " +
+            System.out.println("This website is not allowing " +
                     "the download of: "+ url + " ...");
         }
 
