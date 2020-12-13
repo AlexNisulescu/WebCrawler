@@ -23,10 +23,10 @@ public class ConnectionFailedException extends Exception {
      */
     public void throwExc() {
         System.out.println(this.connError);
-        WriteLogToFile logger=new WriteLogToFile(this.connError);
+        WriteLogToFile logger=new WriteLogToFile();
         try{
             logger.setupLogger();
-            logger.error();
+            logger.error(this.connError);
         }
         catch (IOException e)
         {

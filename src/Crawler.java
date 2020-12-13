@@ -75,11 +75,11 @@ public class Crawler {
                     strURL=myUrl.getPath().toString().substring(1);
                     SiteMap x = SiteMap.getInstance();
                     x.checkRoot(strURL);
-                    WriteLogToFile logger=new WriteLogToFile("Downloaded: " +
-                            myUrl.toString());
+                    WriteLogToFile logger=new WriteLogToFile();
                     try{
                         logger.setupLogger();
-                        logger.info();
+                        logger.info("Downloaded: " +
+                                myUrl.toString());
                     }
                     catch (IOException e)
                     {

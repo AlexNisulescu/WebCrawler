@@ -24,10 +24,10 @@ public class CrawlForbiddenException extends Exception{
      */
     public void throwExc() {
         System.out.println(this.argsError);
-        WriteLogToFile logger=new WriteLogToFile(this.argsError);
+        WriteLogToFile logger=new WriteLogToFile();
         try{
             logger.setupLogger();
-            logger.error();
+            logger.error(this.argsError);
         }
         catch (IOException e)
         {

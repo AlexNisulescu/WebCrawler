@@ -23,10 +23,10 @@ public class FileNotFoundException extends Exception{
      */
     public void throwExc() {
         System.out.println(this.fileError);
-        WriteLogToFile logger=new WriteLogToFile(this.fileError);
+        WriteLogToFile logger=new WriteLogToFile();
         try{
             logger.setupLogger();
-            logger.error();
+            logger.error(this.fileError);
         }
         catch (IOException e)
         {
