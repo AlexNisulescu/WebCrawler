@@ -6,7 +6,12 @@ public class Main {
                 String cfg=args[i+1];
                 String Urls=args[i+2];
                 Config config=new Config();
-                config.recursiveDownload(cfg,Urls);
+                try{
+                    config.recursiveDownload(cfg,Urls);
+                }
+                catch(FileNotFoundException e){
+                    e.throwExc();
+                }
                 try {
                     SiteMap x=SiteMap.getInstance();
                     x.printSitemap("/",0);
