@@ -4,26 +4,25 @@ import java.security.spec.RSAOtherPrimeInfo;
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;   // Import the FileWriter class
+import java.io.IOException;  // Import the IOException class to handle errors
+/**
+ * This class implements the Sitemap class that create the sitemap off the
+ * website
+ * @author Cujba Mihai
+ */
+
+
 
 public class SiteMap {
     private static SiteMap single_instance = null;
     public ArrayList<Route> Paths;
 
-    private SiteMap(String argument)    {
-        try {
-            File Reader = new File("file." + argument + ".txt");
-            Scanner myReader = new Scanner(Reader);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                System.out.println(data);
-        }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
-
+    /**
+     *
+     * here is the implementation of the Sitemap Singletone class
+     *
+     */
     private SiteMap(){
         this.Paths= new ArrayList<Route>();
     }
@@ -36,17 +35,34 @@ public class SiteMap {
         return single_instance;
     }
 
-    void addRoute(Route component) {
-        this.Paths.add(component);
-    }
+
+    /**
+     *
+     * This function return the paths of the Sitemap
+     *
+     */
 
     public List<Route> getPaths() {
         return this.Paths;
     }
 
+    /**
+     *
+     * This function set the paths of the Sitemap
+     *
+     */
+
     public void setPaths(ArrayList<Route> paths) {
         this.Paths = paths;
     }
+
+    /**
+     *
+     * This function replicate a character n times
+     * @param c is used for replication
+     * @param n is the number of replications
+     *
+     */
 
     public String buildString(char c, int n) {
         char[] arr = new char[n];
@@ -54,18 +70,47 @@ public class SiteMap {
         return new String(arr);
     }
 
-    public void printSitemap(String Root,int level){
-        int len=this.Paths.size();
-        for(int i=0;i<len;i++){
-            //System.out.println(this.Paths.get(i).getRoot()+" "+this.Paths.get(i).getParrent()+" "+Root);
-            //System.out.println(this.Paths.get(i).getParrent()+" "+Root+" "+this.Paths.get(i).getParrent().length()+" "+Root.length());
-            if (this.Paths.get(i).getParrent().equals(Root)){
-                System.out.println(buildString('\t',level)+this.Paths.get(i).getRoot());
-                printSitemap(this.Paths.get(i).getRoot(),level+1);
-            }
+    /**
+     *
+     * This function is a recursive function that prints the entire
+     * Sitemap in the Sitemap.txt file
+     * @param Root is the current root of the path
+     * @param lvl is the current depth of the path
+     *
+     */
 
+    public void printSitemap(String Root,int lvl)
+            throws FileNotFoundException{
+        try {
+            int len=this.Paths.size();
+            for(int i=0;i<len;i++){
+                if (this.Paths.get(i).getParrent().equals(Root)){
+                    String filename= "Sitemap.txt";
+                    FileWriter fw = new FileWriter(filename,true);
+                    fw.write(buildString('\t',lvl)+this.Paths.get(i)
+                            .getRoot()+"\n");
+                    fw.close();
+                    printSitemap(this.Paths.get(i).getRoot(),lvl+1);
+                }
+
+            }
+        }
+        catch(IOException e){
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            throw new FileNotFoundException
+                    ("The file you are trying to open " +
+                    "doesn't exist...");
         }
     }
+    /**
+     *
+     * This function is a recursive function that create the entire
+     * Sitemap
+     * @param URL is the current path of the given URL, it changes
+     *            by 1 depth when the function is recalled
+     *
+     */
 
     public void checkRoot(String URL){
         String[] splitted=URL.split("/");
@@ -74,36 +119,40 @@ public class SiteMap {
             if (splitted[index].length() > 0) {
                 boolean ok = false;
                 boolean check2 = false;
-                // verific existenta root-ului ---------------------------------------------
+                // verific existenta root-ului -------------------------------
                 if (this.Paths != null) {
                     for (int i = 0; i < this.Paths.size(); i++) {
-                        if (getPaths().get(i).getRoot().equals(splitted[index])) {
+                        if (getPaths().get(i).getRoot()
+                                .equals(splitted[index])) {
                             ok = true;
                             break;
                         }
                     }
                 }
-                // --------------------------------------------------------------------------
+                // -----------------------------------------------------------
 
                 if (!ok) {
                     if (index > 0) {
-                        Route x = new Route(splitted[index], splitted[index - 1]);
+                        Route x = new Route(splitted[index],
+                                splitted[index - 1]);
                         this.Paths.add(x);
                     } else {
-                        Route x = new Route(splitted[index], "/");
+                        Route x = new Route(splitted[index],
+                                "/");
                         this.Paths.add(x);
                     }
                 } else {
                     if (splitted.length == 2) {
                         for (int i = 0; i < this.Paths.size(); i++) {
-                            if (getPaths().get(i).getRoot().equals(splitted[0])) {
+                            if (getPaths().get(i).getRoot()
+                                    .equals(splitted[0])) {
                                 getPaths().get(i).addContent(splitted[1]);
                             }
                         }
                     } else {
                         StringBuilder Builder = new StringBuilder();
-                        for (int index2 = index + 1; index2 < splitted.length; index2++) {
-                            Builder.append(splitted[index2]);
+                        for (int z = index + 1; z < splitted.length; z++) {
+                            Builder.append(splitted[z]);
                             Builder.append("/");
                         }
                         this.checkRoot(Builder.toString());
