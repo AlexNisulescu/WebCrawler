@@ -53,6 +53,10 @@ public class Crawler {
         }
     }
 
+    public byte[] getResponse() {
+        return response;
+    }
+
     /**
      *
      * This function is used to download data from a specific URL that has been

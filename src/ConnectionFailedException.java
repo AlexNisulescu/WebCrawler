@@ -1,3 +1,4 @@
+import java.io.IOException;
 
 /**
  *
@@ -22,6 +23,14 @@ public class ConnectionFailedException extends Exception {
      */
     public void throwExc() {
         System.out.println(this.connError);
-        //TO DO Implementeaza scrierea in log files cand e gata
+        WriteLogToFile logger=new WriteLogToFile(this.connError);
+        try{
+            logger.setupLogger();
+            logger.error();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
