@@ -100,7 +100,7 @@ public class Parser
         ArrayList<String> result = new ArrayList<String>();
         try {
             String htmlContent = getStringContent();
-            String patternString = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0\-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
+            String patternString = "(https?)\\:\\/\\/[a-zA-z0-9\\.\\/!@#$%^&*=]+";
             Pattern pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(htmlContent);
 
