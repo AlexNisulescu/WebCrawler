@@ -3,7 +3,6 @@ import java.lang.reflect.Array;
 import java.security.spec.RSAOtherPrimeInfo;
 import java.util.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
 /**
@@ -98,8 +97,7 @@ public class SiteMap {
         catch(IOException e){
             System.out.println("An error occurred.");
             e.printStackTrace();
-            throw new FileNotFoundException
-                    ("The file you are trying to open " +
+            throw new FileNotFoundException("The file you are trying to open " +
                     "doesn't exist...");
         }
     }
