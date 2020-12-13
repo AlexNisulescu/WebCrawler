@@ -1,7 +1,7 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.BufferedReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.channels.ScatteringByteChannel;
@@ -136,7 +136,7 @@ public class Config extends Thread {
      * urlVars (Vector<String>)
      * @param file File of urls. Url line by line.
      */
-    private void readFileUrl(String file) throws FileNotFoundException {
+    private void readFileUrl(String file) throws IOException {
         try {
             URL path = ClassLoader.getSystemResource(file);
             File fdata = new File((path.toURI()));
@@ -148,7 +148,7 @@ public class Config extends Thread {
                 count++;
             }
         }
-        catch (FileNotFoundException | URISyntaxException e) {
+        catch (IOException | URISyntaxException e) {
             System.out.println("An error occured at opening file");
             e.printStackTrace();
         }
@@ -158,7 +158,7 @@ public class Config extends Thread {
      *
      * @param file File of config. Search for threads, root, log_level and delay.
      */
-    private void readFileConf(String file) throws FileNotFoundException {
+    private void readFileConf(String file) throws IOException {
         try {
             URL path = ClassLoader.getSystemResource(file);
             File conf = new File((path.toURI()));
@@ -183,7 +183,7 @@ public class Config extends Thread {
                     this.delay=Integer.parseInt(newdata[1]);
             }
         }
-        catch (FileNotFoundException | URISyntaxException e) {
+        catch (IOException | URISyntaxException e) {
             System.out.println("An error occured at opening file");
             e.printStackTrace();
         }
@@ -282,7 +282,7 @@ public class Config extends Thread {
                     string = getPathFromUrl(i);
                     createPath(string);
                 }
-                catch(ConnectionFailedException|IOException e){
+                catch(Exception e){
                     System.out.println("Error at run");
                     e.printStackTrace();
                 }
@@ -297,7 +297,7 @@ public class Config extends Thread {
      * @param url is page url.
      * @return this return a String in format for accessing it.
      */
-    public String getPathFromUrl(String url) throws FileNotFoundException{
+    public String getPathFromUrl(String url) throws Exception{
         try {
             String[] spliter = url.split("/");
             String data = new String();
