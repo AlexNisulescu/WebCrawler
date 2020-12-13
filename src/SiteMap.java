@@ -4,6 +4,8 @@ import java.security.spec.RSAOtherPrimeInfo;
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;   // Import the FileWriter class
+import java.io.IOException;  // Import the IOException class to handle errors
 /**
  * This class implements the Sitemap class that create the sitemap off the
  * website
@@ -70,22 +72,35 @@ public class SiteMap {
 
     /**
      *
-     * This function is a recursive function that print the entire
-     * Sitemap
+     * This function is a recursive function that prints the entire
+     * Sitemap in the Sitemap.txt file
      * @param Root is the current root of the path
-     * @param level is the current depth of the path
+     * @param lvl is the current depth of the path
      *
      */
 
-    public void printSitemap(String Root,int level){
-        int len=this.Paths.size();
-        for(int i=0;i<len;i++){
-            if (this.Paths.get(i).getParrent().equals(Root)){
-                System.out.println(buildString('\t',level)+this.Paths.get(i)
-                        .getRoot());
-                printSitemap(this.Paths.get(i).getRoot(),level+1);
-            }
+    public void printSitemap(String Root,int lvl)
+            throws FileNotFoundException{
+        try {
+            int len=this.Paths.size();
+            for(int i=0;i<len;i++){
+                if (this.Paths.get(i).getParrent().equals(Root)){
+                    String filename= "Sitemap.txt";
+                    FileWriter fw = new FileWriter(filename,true);
+                    fw.write(buildString('\t',lvl)+this.Paths.get(i)
+                            .getRoot()+"\n");
+                    fw.close();
+                    printSitemap(this.Paths.get(i).getRoot(),lvl+1);
+                }
 
+            }
+        }
+        catch(IOException e){
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            throw new FileNotFoundException
+                    ("The file you are trying to open " +
+                    "doesn't exist...");
         }
     }
     /**
@@ -104,7 +119,8 @@ public class SiteMap {
             if (splitted[index].length() > 0) {
                 boolean ok = false;
                 boolean check2 = false;
-                // verific existenta root-ului --------------------------------
+
+                // verific existenta root-ului -------------------------------
                 if (this.Paths != null) {
                     for (int i = 0; i < this.Paths.size(); i++) {
                         if (getPaths().get(i).getRoot()
@@ -114,7 +130,8 @@ public class SiteMap {
                         }
                     }
                 }
-                // ------------------------------------------------------------
+                // -----------------------------------------------------------
+
 
                 if (!ok) {
                     if (index > 0) {
