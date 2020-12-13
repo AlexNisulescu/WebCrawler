@@ -1,32 +1,33 @@
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  *
- * This class implements a custom exception that is used when the website
- * can't be reached
+ * This class implements a custom exception that is used when the download
+ * of the content is not allowed
  * @author Alexandru Nisulescu
  */
-public class ConnectionFailedException extends Exception {
-    private String connError;
+public class CrawlForbiddenException extends Exception{
+    private String argsError;
 
     /**
      * The constructor that handles the error when it is thrown
      * @param errorMessage is the error message
      */
-    public ConnectionFailedException(String errorMessage) {
+    public CrawlForbiddenException(String errorMessage) {
         super(errorMessage);
-        this.connError=errorMessage;
+        this.argsError = errorMessage;
     }
 
     /**
      * The method that is used to write the error to the log file
      */
     public void throwExc() {
-        System.out.println(this.connError);
+        System.out.println(this.argsError);
         WriteLogToFile logger=new WriteLogToFile();
         try{
             logger.setupLogger();
-            logger.error(this.connError);
+            logger.error(this.argsError);
         }
         catch (IOException e)
         {

@@ -1,2 +1,8 @@
 out/
 *.html
+*.zip
+*.jpg
+*.png
+*.pdf
+*.txt
+*.cnf

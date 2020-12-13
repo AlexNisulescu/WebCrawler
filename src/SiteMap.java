@@ -119,6 +119,7 @@ public class SiteMap {
             if (splitted[index].length() > 0) {
                 boolean ok = false;
                 boolean check2 = false;
+
                 // verific existenta root-ului -------------------------------
                 if (this.Paths != null) {
                     for (int i = 0; i < this.Paths.size(); i++) {
@@ -130,6 +131,7 @@ public class SiteMap {
                     }
                 }
                 // -----------------------------------------------------------
+
 
                 if (!ok) {
                     if (index > 0) {
