@@ -64,9 +64,7 @@ public class WordFilter implements Search {
 
                 }
                 catch(IOException e){
-                    System.out.println("An error occurred.");
-                    e.printStackTrace();
-                    throw new FileNotFoundException("The file you are trying to open " +"doesn't exist...");
+                    ;
                 }
 
             }

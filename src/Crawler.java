@@ -72,10 +72,12 @@ public class Crawler {
             try {
                 getContents();
                 try {
-                    strURL=myUrl.getPath().toString().substring(1);
-                    SiteMap x = SiteMap.getInstance();
-                    x.checkRoot(strURL);
-                    WriteLogToFile logger=new WriteLogToFile();
+                    if(myUrl.getPath().toString().length()>0) {
+                        strURL = myUrl.getPath().toString().substring(1);
+                        SiteMap x = SiteMap.getInstance();
+                        x.checkRoot(strURL);
+                    }
+                        WriteLogToFile logger = new WriteLogToFile();
                     try{
                         logger.setupLogger();
                         logger.info("Downloaded: " +
@@ -99,8 +101,19 @@ public class Crawler {
         }
         else{
             String url=myUrl.toString();
+
             System.out.println("This website is not allowing " +
                     "the download of: "+ url + " ...");
+            WriteLogToFile logger=new WriteLogToFile();
+            try{
+                logger.setupLogger();
+                logger.error("This website is not allowing " +
+                        "the download of: "+ url + " ...");
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
 
     }

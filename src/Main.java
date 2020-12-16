@@ -33,9 +33,10 @@ public class Main {
                 }
             }
             if (args[i].equals("list")){
-                String list=args[i+1];
-                String cale =args[i+2];
+                String cale =args[i+1];
+                String list=args[i+2];
                 Search b=new WordFilter(cale);
+
                 try {
                     b.search_method(list);
                 }
