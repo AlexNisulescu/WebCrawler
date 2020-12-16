@@ -110,56 +110,58 @@ public class SiteMap {
      *
      */
 
-    public void checkRoot(String URL){
-        String[] splitted=URL.split("/");
+    public void checkRoot(String URL) {
+        String[] splitted = URL.split("/");
         String name;
-        for(int index=0; index<splitted.length;index++) {
-            if (splitted[index].length() > 0) {
-                boolean ok = false;
-                boolean check2 = false;
+        if (URL.length() > 0) {
+            for (int index = 0; index < splitted.length; index++) {
+                if (splitted[index].length() > 0) {
+                    boolean ok = false;
+                    boolean check2 = false;
 
-                // verific existenta root-ului -------------------------------
-                if (this.Paths != null) {
-                    for (int i = 0; i < this.Paths.size(); i++) {
-                        if (getPaths().get(i).getRoot()
-                                .equals(splitted[index])) {
-                            ok = true;
-                            break;
-                        }
-                    }
-                }
-                // -----------------------------------------------------------
-
-
-                if (!ok) {
-                    if (index > 0) {
-                        Route x = new Route(splitted[index],
-                                splitted[index - 1]);
-                        this.Paths.add(x);
-                    } else {
-                        Route x = new Route(splitted[index],
-                                "/");
-                        this.Paths.add(x);
-                    }
-                } else {
-                    if (splitted.length == 2) {
+                    // verific existenta root-ului -------------------------------
+                    if (this.Paths != null) {
                         for (int i = 0; i < this.Paths.size(); i++) {
                             if (getPaths().get(i).getRoot()
-                                    .equals(splitted[0])) {
-                                getPaths().get(i).addContent(splitted[1]);
+                                    .equals(splitted[index])) {
+                                ok = true;
+                                break;
                             }
                         }
-                    } else {
-                        StringBuilder Builder = new StringBuilder();
-                        for (int z = index + 1; z < splitted.length; z++) {
-                            Builder.append(splitted[z]);
-                            Builder.append("/");
+                    }
+                    // -----------------------------------------------------------
+
+
+                    if (!ok) {
+                        if (index > 0) {
+                            Route x = new Route(splitted[index],
+                                    splitted[index - 1]);
+                            this.Paths.add(x);
+                        } else {
+                            Route x = new Route(splitted[index],
+                                    "/");
+                            this.Paths.add(x);
                         }
-                        this.checkRoot(Builder.toString());
+                    } else {
+                        if (splitted.length == 2) {
+                            for (int i = 0; i < this.Paths.size(); i++) {
+                                if (getPaths().get(i).getRoot()
+                                        .equals(splitted[0])) {
+                                    getPaths().get(i).addContent(splitted[1]);
+                                }
+                            }
+                        } else {
+                            StringBuilder Builder = new StringBuilder();
+                            for (int z = index + 1; z < splitted.length; z++) {
+                                Builder.append(splitted[z]);
+                                Builder.append("/");
+                            }
+                            this.checkRoot(Builder.toString());
+                        }
                     }
                 }
             }
         }
-    }
+        }
 
 }
