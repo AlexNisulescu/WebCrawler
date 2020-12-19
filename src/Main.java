@@ -14,6 +14,7 @@ public class Main {
                 }
                 try {
                     SiteMap x=SiteMap.getInstance();
+                    x.clearSitemapForPrint();
                     x.printSitemap("/",0);
                 }
                 catch (FileNotFoundException e){

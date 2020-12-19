@@ -71,6 +71,29 @@ public class SiteMap {
 
     /**
      *
+     * This print an empty string in the Sitemap.txt
+     *
+     */
+
+    public void clearSitemapForPrint()
+            throws FileNotFoundException{
+        try {
+            String filename= "Sitemap.txt";
+            FileWriter fw = new FileWriter(filename);
+            fw.write("");
+            fw.close();
+        }
+        catch(IOException e){
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            throw new FileNotFoundException("The file you are trying to open " +
+                    "doesn't exist...");
+        }
+    }
+
+
+    /**
+     *
      * This function is a recursive function that prints the entire
      * Sitemap in the Sitemap.txt file
      * @param Root is the current root of the path
