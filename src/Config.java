@@ -204,11 +204,15 @@ public class Config extends Thread {
             readFileUrl(Urls);
 
             Crawler[] crawl=new Crawler[nThreads];
-            final int threads = nThreads;
+            int thred=nThreads;
             final int lenght = urlVars.size();
+            if(lenght<thred) {
+                thred=lenght;
+            }
+            final int threads = thred;
             final int balk = (lenght / threads);
             Config[] thread = new Config[threads];
-            for (int i = 0; i < nThreads; i++) {
+            for (int i = 0; i < threads; i++) {
                 final int current = i;
                 thread[i] = new Config();
                 crawl[i]=new Crawler(delay);
